@@ -1,9 +1,22 @@
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+@import 'normalize.css/normalize.css';
+
+@font-face {
+    font-family: 'montserrat';
+    src: url('./fonts/Montserrat-VariableFont_wght.ttf');
 }
 
-h1 {
-  color: red;
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: var(--main_text_color);
+    font-family: "Montserrat", 'sans-serif';
+}
+
+root {
+    --main_text_color: #000000;
+}
+
+[theme="dark"] {
+    --main_text_color: #fff;
 }

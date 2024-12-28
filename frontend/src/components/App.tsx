@@ -1,7 +1,17 @@
-import * as styles from '../styles/App.module.css';
+import {Component} from "react";
+import './app.styles.css'
+import {TaskBoxTemplate} from "./task-box-template/task-box-template";
 
-export default function App() {
-  return (
-    <h1>App component</h1>
-  )
+export class App extends Component {
+
+
+    public render() {
+        return (
+            <>
+                <div className="container">
+                    <TaskBoxTemplate></TaskBoxTemplate>
+                </div>
+            </>
+        );
+    }
 }
