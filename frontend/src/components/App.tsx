@@ -5,15 +5,10 @@ import {Header} from "./header/header";
 
 export class App extends Component {
 
-    private show(): void {
-        console.log(this)
-    }
-
-
     public render() {
         return (
             <>
-                <div className="container" onScroll={this.show}>
+                <div className="container">
                     <Header></Header>
                     <TaskBoxTemplate></TaskBoxTemplate>
                 </div>

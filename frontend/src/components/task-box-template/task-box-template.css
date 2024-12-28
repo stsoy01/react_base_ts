@@ -16,7 +16,7 @@
     height: 30px;
     background-size: contain;
     border: none;
-    background-image: url('../../assets/img/up-arrow.gif');
+    background-image: url('../../assets/img/up_arrow.gif');
     mix-blend-mode: color-burn;
 }
 
