@@ -17,7 +17,7 @@ export class Header extends Component {
         const intervalId = setInterval(() => {
             const tasks = JSON.parse(localStorage.getItem('totalTaskCount') as any);
             this.setState({totalTaskCount: this._taskStatistic.totalTaskCount = tasks ? `У вас ${tasks} задач на сегодня` : 'У вас нет задач'});
-        }, 5000)
+        }, 1500)
     }
 
 

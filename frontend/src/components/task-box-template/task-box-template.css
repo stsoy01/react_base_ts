@@ -1,6 +1,6 @@
 .task__box {
     position: relative;
-    width: 250px;
+    width: 270px;
     height: 275px;
     background: rgba(197, 197, 197, 0.8);
     border-bottom-right-radius: 24px;
@@ -8,7 +8,7 @@
     transition: .5s all ease-in-out;
 }
 
-.task__box__switch {
+.task__box__open-btn {
     position: absolute;
     top: -18px;
     left: 110px;
@@ -18,4 +18,13 @@
     border: none;
     background-image: url('../../assets/img/up-arrow.gif');
     mix-blend-mode: color-burn;
+}
+
+.task__box--visible {
+    user-select: none;
+    pointer-events: none;
+}
+
+.task__box__container {
+    padding: 10px 20px;
 }
