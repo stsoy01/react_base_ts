@@ -1,0 +1,21 @@
+.task__box {
+    position: relative;
+    width: 250px;
+    height: 275px;
+    background: rgba(197, 197, 197, 0.8);
+    border-bottom-right-radius: 24px;
+    border-bottom-left-radius: 24px;
+    transition: .5s all ease-in-out;
+}
+
+.task__box__switch {
+    position: absolute;
+    top: -18px;
+    left: 110px;
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    border: none;
+    background-image: url('../../assets/img/up-arrow.gif');
+    mix-blend-mode: color-burn;
+}
