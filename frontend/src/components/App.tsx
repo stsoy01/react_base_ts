@@ -1,18 +1,13 @@
-import {Component} from "react";
 import './app.styles.css'
-import {TaskBoxTemplate} from "./task-box-template/task-box-template";
-import {Header} from "./header/header";
+import TodoList from "../pages/todo-list/Todo-list";
 
-export class App extends Component {
+export default function App(){
 
-    public render() {
         return (
             <>
-                <div className="container">
-                    <Header></Header>
-                    <TaskBoxTemplate></TaskBoxTemplate>
-                </div>
+                <TodoList></TodoList>
             </>
         );
     }
-}
+
+

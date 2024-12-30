@@ -24,3 +24,11 @@ root {
 button:hover {
     cursor: pointer;
 }
+
+ul, li, ol {
+    list-style-type: none;
+}
+
+button:hover {
+    cursor: pointer;
+}

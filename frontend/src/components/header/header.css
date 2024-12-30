@@ -1,11 +1,12 @@
 .header {
-    width: 270px;
+    width: 450px;
     height: 400px;
     padding: 35px 20px 0;
     border-radius: 24px 24px 0 0;
-    background-image: url('https://i.pinimg.com/736x/f5/43/a5/f543a51b9b456147ad8768384f3b57f0.jpg');
-    background-size: cover;
+    background-image: url('../../assets/img/header_bg.jpg');
     background-repeat: no-repeat;
+    background-position-y: 100%;
+    background-size: cover;
     user-select: none;
 }
 
@@ -47,4 +48,5 @@
     display: block;
     text-align: center;
     font-size: 10px;
+    font-weight: 500;
 }

@@ -1,17 +1,20 @@
 .task__box {
     position: relative;
-    width: 270px;
+    width: 450px;
     height: 275px;
-    background: rgba(197, 197, 197, 0.8);
+    padding: 10px 20px;
+    background: #68B0AB;
     border-bottom-right-radius: 24px;
     border-bottom-left-radius: 24px;
     transition: .5s all ease-in-out;
+    overflow-y: scroll;
+    scrollbar-width: none;
 }
 
 .task__box__open-btn {
     position: absolute;
     top: -18px;
-    left: 120px;
+    left: 47%;
     width: 30px;
     height: 30px;
     background-size: contain;
@@ -23,8 +26,4 @@
 .task__box--visible {
     user-select: none;
     pointer-events: none;
-}
-
-.task__box__container {
-    padding: 10px 20px;
 }

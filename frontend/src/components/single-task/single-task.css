@@ -1,0 +1,25 @@
+.task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px;
+    border-radius: 10px;
+    background: bisque;
+    margin-bottom: 10px;
+    min-height: 45px;
+}
+
+.task__left__box {
+    display: flex;
+    align-items: center;
+}
+
+.task__btn-delete {
+    width: 30px;
+    height: 30px;
+    background-image: url('../../assets/img/icons8-trash.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: inherit;
+    border: none;
+}
