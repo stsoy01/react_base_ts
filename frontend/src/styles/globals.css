@@ -13,12 +13,14 @@
     font-family: "Montserrat", 'sans-serif';
 }
 
-root {
+:root {
     --main_text_color: #000000;
+    --neon-border-color: #b8b8b82e;
 }
 
 [theme="dark"] {
     --main_text_color: #fff;
+    --neon-border-color: #b8b8b82e;
 }
 
 button:hover {

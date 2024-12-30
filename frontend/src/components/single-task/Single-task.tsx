@@ -5,7 +5,7 @@ import './single-task.css'
 export default function SingleTask({ tasksList }: any) {
     const task = tasksList.map((task: SingleTaskInterface) =>
         <li className="task" key={task.id}>
-            <div className="task__left__box"> 
+            <div className="task__left__box">
                 <Checkbox></Checkbox>
                 <h6>{task.id}</h6>
                 <p>

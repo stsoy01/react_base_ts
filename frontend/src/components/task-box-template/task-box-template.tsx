@@ -1,10 +1,8 @@
-import { useState } from "react";
 import SingleTask from "../single-task/Single-task";
 import './task-box-template.css';
 import { SingleTaskInterface } from "../../shared/interfaces/single-task.interface";
 
 export default function TaskBoxTemplate({ fromChild }: any) {
-    const [_position, setPosition] = useState({ isBottom: true });
     const tasksList: SingleTaskInterface[] = [
         { id: 1, title: 'Call Mom', status: true, creation_date: new Date().toLocaleString() },
         { id: 2, title: 'Write CV', status: false, creation_date: new Date().toLocaleString() },
@@ -22,18 +20,10 @@ export default function TaskBoxTemplate({ fromChild }: any) {
 
 
     return (
-        <div className="task__box" style={{
-            bottom: _position.isBottom ? '0' : '250px',
-            height: _position.isBottom ? '250px' : '400px',
-        }}>
-            <button
-                className="task__box__open-btn"
-                onClick={() => setPosition({ isBottom: !_position.isBottom })}
-            ></button>
+        <div className="task__box" >
 
             <div
-                className="task__box--visible"
-                style={{ pointerEvents: _position.isBottom ? 'none' : 'auto' }}>
+                className="task__box--visible">
                 <div className="task__box__container">
                     <SingleTask tasksList={tasksList}></SingleTask>
                 </div>

@@ -1,7 +1,7 @@
 .task__box {
     position: relative;
     width: 450px;
-    height: 275px;
+    height: 100%;
     padding: 10px 20px;
     background: #68B0AB;
     border-bottom-right-radius: 24px;
@@ -25,5 +25,4 @@
 
 .task__box--visible {
     user-select: none;
-    pointer-events: none;
 }
