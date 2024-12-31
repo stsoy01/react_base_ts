@@ -6,18 +6,33 @@ export default function SingleTask({ tasksList }: any) {
 
 
     const task = tasksList?.map((task: SingleTaskInterface) =>
-        <li className="task" key={task.id}>
-            <div className="task__left__box">
-                <Checkbox
-                    checkedTask={task}>
-                </Checkbox>
+        <li
+            key={task.id}
+            className="task">
 
-                <div>
-                    <h6>{task.title}</h6>
-                    <p>{task.description}</p>
+            <div className="t_container">
+                <div className="task__left__box">
+                    <Checkbox checkedTask={task}></Checkbox>
+
+                    <div>
+                        <h6>{task.title}</h6>
+                        <p>{task.description}</p>
+                    </div>
                 </div>
+
+                <button
+                    title="task-delete"
+                    className="task__btn-delete"
+                ></button>
             </div>
-            <button className="task__btn-delete"></button>
+
+            <span
+                style={{
+                    fontWeight: '500',
+                    fontSize: '10px',
+                    display: 'block',
+                    textAlign: 'right'
+                }}>создано:{task.creation_date}</span>
         </li>
     )
 

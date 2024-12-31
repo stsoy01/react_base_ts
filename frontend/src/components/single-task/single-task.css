@@ -1,12 +1,16 @@
 .task {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding: 5px 10px;
     border-radius: 10px;
     background: bisque;
     margin-bottom: 10px;
     min-height: 45px;
+}
+
+.t_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
 }
 
 .task__left__box {
