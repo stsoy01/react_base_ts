@@ -3,14 +3,19 @@ import Checkbox from "../checkbox/Checkbox";
 import './single-task.css'
 
 export default function SingleTask({ tasksList }: any) {
-    const task = tasksList.map((task: SingleTaskInterface) =>
+
+
+    const task = tasksList?.map((task: SingleTaskInterface) =>
         <li className="task" key={task.id}>
             <div className="task__left__box">
-                <Checkbox></Checkbox>
-                <h6>{task.id}</h6>
-                <p>
-                    {task.title}
-                </p>
+                <Checkbox
+                    checkedTask={task}>
+                </Checkbox>
+
+                <div>
+                    <h6>{task.title}</h6>
+                    <p>{task.description}</p>
+                </div>
             </div>
             <button className="task__btn-delete"></button>
         </li>

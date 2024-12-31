@@ -14,8 +14,12 @@
     height: 0;
     position: relative;
     bottom: 0;
-    transition: .3s;
+    transition: .2s;
     border-radius: 0 0 24px 24px;
+    padding: 0 20px;
+    background: aqua;
+    scrollbar-width: none;
+    background: #68B0AB;
 }
 
 .btn_switch {
@@ -29,8 +33,25 @@
     animation: flicker 2.2s infinite alternate;
 }
 
+.task__sections {
+    display: flex;
+    justify-content: space-evenly;
+    margin: 20px 0;
+
+    button {
+        background: none;
+        border: none;
+        width: 100px
+    }
+}
+
 .btn_switch::-moz-selection {
     background-color: var(--neon-border-color);
+}
+
+.task__section-btn:hover {
+    font-weight: 550;
+    transition: .3s;
 }
 
 @keyframes flicker {

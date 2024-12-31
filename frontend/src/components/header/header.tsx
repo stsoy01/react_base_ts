@@ -2,7 +2,6 @@ import './header.css'
 
 export default function Header({ tasksOverview, borderRadius }: any) {
     const date: Date | string = new Date().toLocaleDateString();
-    console.log(borderRadius)
 
     return (
         <header
