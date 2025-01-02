@@ -1,87 +1,41 @@
 import {
-    useEffect,
-    useState
+    useRef,
+    useState,
+    useEffect
 } from 'react'
+import Dialog from '../../components/dialog/Dialog';
 import Header from '../../components/header/Header';
 import TaskService from '../../shared/services/tasks.service';
-import CurrentSectionService from '../../shared/services/current-section.service';
 import SingleTask from '../../components/single-task/Single-task';
+import CurrentSectionService from '../../shared/services/current-section.service';
 import './todo-list.css'
 
 export default function TodoList() {
-
-    const [tasksOverview, setTaskOverview] = useState(TaskService().returnTasksList()?.length ? `У вас всего ${TaskService().returnTasksList()?.length} задач` : 'Список задач пуст');
-    const [_position, setPosition] = useState({ isBottom: true });
     const [taskList, setTaskList] = useState([]);
+    const [taskDataPOST, setTaskDataPOST] = useState({})
+    const [_position, setPosition] = useState({ isBottom: true });
     const [currentSection, setCurrentSection] = useState(CurrentSectionService().getSection())
+    const [tasksOverview, setTaskOverview] = useState(TaskService().returnTasksList('all')?.length ? `У вас всего ${TaskService().returnTasksList()?.length} задач` : 'Список задач пуст');
 
+    let addTaskButton;
+    if (currentSection === 'all') {
+        addTaskButton = <button
+            onClick={() => toggleDialog()}
+            className='dialog__btn'
+            title='dialog'
+        >{'Добавить задачу'}</button>
+    }
+
+    const dialogRef = useRef<HTMLDialogElement>(null);
+    function toggleDialog(): void {
+        if (!dialogRef.current) {
+            return
+        }
+
+        dialogRef.current.hasAttribute('open') ? dialogRef.current.close() : dialogRef.current.showModal();
+    }
 
     useEffect(() => {
-        // localStorage.setItem('tasks',JSON.stringify([
-        //     {
-        //         id: 1,
-        //         status: 'done',
-        //         title: 'Позвонить маме',
-        //         description: 'Договориться о встрече на четверг',
-        //         creation_date: new Date().toLocaleDateString()
-        //     },
-        //     {
-        //         id: 2,
-        //         status: 'undone',
-        //         title: 'Сити Банк',
-        //         description: 'Открыть сберегательный вклад',
-        //         creation_date: new Date().toLocaleDateString()
-        //     },
-        //     {
-        //         id: 3,
-        //         status: 'done',
-        //         title: 'Написать CV',
-        //         description: 'Получить оффер от MindBox',
-        //         creation_date: new Date().toLocaleDateString()
-        //     },
-        //     {
-        //         id: 4,
-        //         status: 'done',
-        //         title: 'Футбол',
-        //         description: 'Позвонить Артему',
-        //         creation_date: new Date().toLocaleDateString()
-        //     },
-        //     {
-        //         id: 5,
-        //         status: 'undone',
-        //         title: 'ТО машины',
-        //         description: 'Анна Б. поможет с контактом',
-        //         creation_date: new Date().toLocaleDateString()
-        //     },
-        //     {
-        //         id: 6,
-        //         status: 'done',
-        //         title: 'Продукты',
-        //         description: 'Купить продукты',
-        //         creation_date: new Date().toLocaleDateString()
-        //     },
-        //     {
-        //         id: 7,
-        //         status: 'undone',
-        //         title: 'Сервисный центр',
-        //         description: 'Забрать телефон',
-        //         creation_date: new Date().toLocaleDateString()
-        //     },
-        //     {
-        //         id: 8,
-        //         status: 'undone',
-        //         title: 'Послушать новый альбом Depeche Mode',
-        //         description: 'Диск у Регины',
-        //         creation_date: new Date().toLocaleDateString()
-        //     },
-        //     {
-        //         id: 9,
-        //         status: 'done',
-        //         title: 'Дописать сервис в приложении',
-        //         description: 'Референс у Кости',
-        //         creation_date: new Date().toLocaleDateString()
-        // },
-        // ]))
         getTaskList();
     }, [])
 
@@ -93,13 +47,20 @@ export default function TodoList() {
 
     function onChecked(): void {
         pickTaskList(currentSection);
-
     }
 
     function pickTaskList(project: string): any {
         setTaskList(TaskService().returnTasksList(project));
         CurrentSectionService().setSection(project);
         setCurrentSection(project);
+    }
+
+    const taskDataPostHandleChange = (event: any, key: string) => {
+        if (key === 'title' && !event.target.value) {
+            return;
+        }
+
+        setTaskDataPOST({ ...taskDataPOST, [key]: event.target.value })
     }
 
     return (
@@ -149,12 +110,31 @@ export default function TodoList() {
                             onRemove={getTaskList}
                         ></SingleTask>
 
-                        <button
-                            className='dialog__btn'
-                            title='dialog'
-                        >{'Добавить задачу'}
-                        </button>
+                        {addTaskButton}
                     </div>
+
+                    <Dialog toggleDialog={toggleDialog} ref={dialogRef}>
+                        <>
+                            <form>
+                                <input
+                                    type='text'
+                                    required={true}
+                                    placeholder='Заголовок'
+                                    onKeyUp={(event) => taskDataPostHandleChange(event, 'title')} />
+                                <input
+                                    type='text'
+                                    placeholder='Описание'
+                                    onKeyUp={(event) => taskDataPostHandleChange(event, 'description')} />
+                                <button type='submit' onClick={(event) => {
+                                    event.preventDefault();
+                                    TaskService().addTask(taskDataPOST);
+                                    onChecked();
+                                    setTaskDataPOST({})
+                                    toggleDialog();
+                                }}>{'Сохранить'}</button>
+                            </form>
+                        </>
+                    </Dialog>
                 </section>
             </div >
         </>
