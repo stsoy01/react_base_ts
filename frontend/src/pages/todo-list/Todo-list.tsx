@@ -4,14 +4,16 @@ import {
 } from 'react'
 import Header from '../../components/header/Header';
 import TaskService from '../../shared/services/tasks.service';
+import CurrentSectionService from '../../shared/services/current-section.service';
 import SingleTask from '../../components/single-task/Single-task';
 import './todo-list.css'
 
 export default function TodoList() {
 
-    const [tasksOverview] = useState(TaskService().returnTasksList()?.length ? `У вас всего ${TaskService().returnTasksList()?.length} задач` : 'Список задач пуст');
+    const [tasksOverview, setTaskOverview] = useState(TaskService().returnTasksList()?.length ? `У вас всего ${TaskService().returnTasksList()?.length} задач` : 'Список задач пуст');
     const [_position, setPosition] = useState({ isBottom: true });
     const [taskList, setTaskList] = useState([]);
+    const [currentSection, setCurrentSection] = useState(CurrentSectionService().getSection())
 
 
     useEffect(() => {
@@ -78,14 +80,26 @@ export default function TodoList() {
         //         title: 'Дописать сервис в приложении',
         //         description: 'Референс у Кости',
         //         creation_date: new Date().toLocaleDateString()
-        //     },
+        // },
         // ]))
-        let tasks = TaskService().returnTasksList;
-        setTaskList(tasks as any)
+        getTaskList();
     }, [])
 
+    function getTaskList(): void {
+        const tasks = TaskService().returnTasksList(currentSection);
+        setTaskList(tasks as never);
+        setTaskOverview(`У вас всего ${tasks?.length} задач`)
+    }
+
+    function onChecked(): void {
+        pickTaskList(currentSection);
+
+    }
+
     function pickTaskList(project: string): any {
-        setTaskList(TaskService().returnTasksList(project))
+        setTaskList(TaskService().returnTasksList(project));
+        CurrentSectionService().setSection(project);
+        setCurrentSection(project);
     }
 
     return (
@@ -128,7 +142,19 @@ export default function TodoList() {
                         >{'Незавершено'}</button>
                     </div>
 
-                    <SingleTask tasksList={taskList}></SingleTask>
+                    <div className='task__bottom'>
+                        <SingleTask
+                            onChecked={onChecked}
+                            tasksList={taskList}
+                            onRemove={getTaskList}
+                        ></SingleTask>
+
+                        <button
+                            className='dialog__btn'
+                            title='dialog'
+                        >{'Добавить задачу'}
+                        </button>
+                    </div>
                 </section>
             </div >
         </>

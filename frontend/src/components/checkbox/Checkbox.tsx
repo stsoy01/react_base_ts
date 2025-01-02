@@ -1,24 +1,28 @@
 import './checkbox.css'
 import taskService from '../../shared/services/tasks.service'
 
-export default function Checkbox({ checkedTask }: any) {
+export default function Checkbox({ checkedTask, onChecked }: any) {
 
-    function changeChakedValue(event: any): void {
-        taskService(checkedTask).editTask(event?.target?.checked);
+
+    function changeChekedValue(event: any): void {
+        taskService(checkedTask).editTaskById(event?.target?.checked);
+        onChecked();
     }
 
     return (
         <>
-            <label className="checkbox__container">
-                <input
-                    type="checkbox"
-                    id="checkbox"
-                    name="checkbox"
-                    onChange={event => changeChakedValue(event)}
-                />
+            <form>
+                <div className="checkbox">
+                    <input
+                        checked={checkedTask.status ===  'done'}
+                        className="checkbox-input"
+                        type="checkbox"
+                        id="checkbox2"
+                        onChange={(event) => {changeChekedValue(event), onChecked()}} />
 
-                <span className="checkmark"></span>
-            </label>
+                    <label className="checkbox-label"></label>
+                </div>
+            </form>
         </>
     )
 }

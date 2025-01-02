@@ -8,21 +8,22 @@ const TaskService = (task?: SingleTaskInterface, newTask?: SingleTaskInterface) 
 
         },
 
-        removeTask: function () {
-
+        removeTaskById: function (id: number) {
+            editedTaskList = this.returnTasksList().filter((singleTask: SingleTaskInterface) => singleTask.id !== id);
+            this.updateTasksList(editedTaskList)
         },
 
-        editTask: function (status: boolean) {
-            editedTaskList = this.returnTasksList().map((el: any) => {
-                if (el.id === task?.id) {
+        editTaskById: function (status: boolean) {
+            editedTaskList = this.returnTasksList().map((singleTask: any) => {
+                if (singleTask.id === task?.id) {
                     if (status === true) {
-                        el.status = 'done';
+                        singleTask.status = 'done';
                     } else {
-                        el.status = 'undone';
+                        singleTask.status = 'undone';
                     }
                 }
 
-                return el;
+                return singleTask;
             });
 
             this.updateTasksList(editedTaskList)
@@ -33,10 +34,10 @@ const TaskService = (task?: SingleTaskInterface, newTask?: SingleTaskInterface) 
 
             switch (taskType) {
                 case 'done':
-                    const doneTasks = allTasks?.filter((el: any) => el.status === 'done');
+                    const doneTasks = allTasks?.filter((singleTask: any) => singleTask.status === 'done');
                     return doneTasks;
                 case 'undone':
-                    const undoneTasks = allTasks?.filter((el: any) => el.status === 'undone');
+                    const undoneTasks = allTasks?.filter((singleTask: any) => singleTask.status === 'undone');
                     return undoneTasks;
                 default:
                     return allTasks;

@@ -1,8 +1,15 @@
 import { SingleTaskInterface } from "../../shared/interfaces/single-task.interface";
+import TaskService from "../../shared/services/tasks.service";
 import Checkbox from "../checkbox/Checkbox";
 import './single-task.css'
 
-export default function SingleTask({ tasksList }: any) {
+export default function SingleTask({ tasksList, onRemove, onChecked }: any) {
+
+    function removeTaskById(taskId: number) {
+        TaskService().removeTaskById(taskId)
+        onRemove()
+        onChecked()
+    }
 
 
     const task = tasksList?.map((task: SingleTaskInterface) =>
@@ -12,7 +19,10 @@ export default function SingleTask({ tasksList }: any) {
 
             <div className="t_container">
                 <div className="task__left__box">
-                    <Checkbox checkedTask={task}></Checkbox>
+                    <Checkbox
+                        checkedTask={task}
+                        onChecked={onChecked}
+                    ></Checkbox>
 
                     <div>
                         <h6>{task.title}</h6>
@@ -21,6 +31,9 @@ export default function SingleTask({ tasksList }: any) {
                 </div>
 
                 <button
+                    onClick={(event) => {
+                        removeTaskById(task.id), onRemove()
+                    }}
                     title="task-delete"
                     className="task__btn-delete"
                 ></button>

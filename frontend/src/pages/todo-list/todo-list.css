@@ -36,7 +36,7 @@
 .task__sections {
     display: flex;
     justify-content: space-evenly;
-    margin: 20px 0;
+    margin: 20px 0 15px;
 
     button {
         background: none;
@@ -88,5 +88,34 @@
     55% {
         text-shadow: none;
         box-shadow: none;
+    }
+}
+
+.task__bottom {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100%;
+}
+
+.dialog__btn {
+    position: sticky;
+    bottom: 21px;
+    right: 10%;
+    width: fit-content;
+    padding: 12px;
+    background: no-repeat;
+    border: none;
+    background-color: #e2e2e2;
+    transition: opacity ease 0.5s;
+    border-radius: 10px;
+    font-weight: 650;
+    transition: .3s;
+
+
+    &:hover {
+        cursor: pointer;
+        background-color: #efefef;
+        transition: .3s;
     }
 }
