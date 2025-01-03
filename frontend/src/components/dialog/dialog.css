@@ -4,7 +4,7 @@ dialog {
     margin: 0;
     padding: 15px 20px;
     min-width: 350px;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%);
     border-radius: 10px;
     border: none;
 }
