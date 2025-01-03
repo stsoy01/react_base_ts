@@ -1,0 +1,27 @@
+dialog {
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    padding: 15px 20px;
+    min-width: 350px;
+    transform: translateX(-50%);
+    border-radius: 10px;
+    border: none;
+}
+
+.saveBtn,
+.closeBtn {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: none;
+    color: #fff;
+}
+
+.saveBtn {
+    margin-right: 10px;
+    background-color: #0064ff80;
+}
+
+.closeBtn {
+    background-color: #ff0000e0;
+}

@@ -119,3 +119,13 @@
         transition: .3s;
     }
 }
+
+.formInput {
+    display: block;
+    width: 100%;
+    padding: 10px 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #d3d3d375;
+}

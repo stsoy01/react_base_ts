@@ -12,8 +12,9 @@ import './todo-list.css'
 
 export default function TodoList() {
     const [taskList, setTaskList] = useState([]);
-    const [taskDataPOST, setTaskDataPOST] = useState({})
+    const [taskDataPOST, setTaskDataPOST] = useState({ title: '', description: '' })
     const [_position, setPosition] = useState({ isBottom: true });
+    const [active, setActive] = useState(CurrentSectionService().getSection());
     const [currentSection, setCurrentSection] = useState(CurrentSectionService().getSection())
     const [tasksOverview, setTaskOverview] = useState(TaskService().returnTasksList('all')?.length ? `У вас всего ${TaskService().returnTasksList()?.length} задач` : 'Список задач пуст');
 
@@ -49,19 +50,31 @@ export default function TodoList() {
         pickTaskList(currentSection);
     }
 
-    function pickTaskList(project: string): any {
+    function pickTaskList(project: string,): any {
         setTaskList(TaskService().returnTasksList(project));
         CurrentSectionService().setSection(project);
         setCurrentSection(project);
+        setActive(project)
     }
 
     const taskDataPostHandleChange = (event: any, key: string) => {
-        if (key === 'title' && !event.target.value) {
+        setTaskDataPOST({ ...taskDataPOST, [key]: event.target.value })
+    }
+
+    function saveNewTask(event: any): void {
+        if (!taskDataPOST.title) {
             return;
         }
 
-        setTaskDataPOST({ ...taskDataPOST, [key]: event.target.value })
+        event.preventDefault();
+        TaskService().addTask(taskDataPOST);
+        onChecked();
+        setTaskDataPOST({ title: '', description: '' })
+        getTaskList()
+        toggleDialog();
     }
+
+
 
     return (
         <>
@@ -89,15 +102,18 @@ export default function TodoList() {
                     <div className='task__sections'>
                         <button
                             className='task__section-btn'
+                            style={{ fontWeight: active === 'all' ? '600' : '', color: active === 'all' ? 'lightGrey' : '' }}
                             onClick={() => pickTaskList('all')}
                         >{'Все'}</button>
 
                         <button
+                            style={{ fontWeight: active === 'done' ? '600' : '', color: active === 'done' ? 'lightGrey' : '' }}
                             className='task__section-btn'
                             onClick={() => pickTaskList('done')}
                         >{'Выполнено'}</button>
 
                         <button
+                            style={{ fontWeight: active === 'undone' ? '600' : '', color: active === 'undone' ? 'lightGrey' : '' }}
                             className='task__section-btn'
                             onClick={() => pickTaskList('undone')}
                         >{'Незавершено'}</button>
@@ -113,25 +129,21 @@ export default function TodoList() {
                         {addTaskButton}
                     </div>
 
-                    <Dialog toggleDialog={toggleDialog} ref={dialogRef}>
+                    <Dialog onSave={(event) => saveNewTask(event)} toggleDialog={toggleDialog} ref={dialogRef}>
                         <>
-                            <form>
+                            <form >
+                                <h3 style={{ marginBottom: '30px', fontWeight: '600' }}>{'Добавить задание'}</h3>
                                 <input
                                     type='text'
                                     required={true}
+                                    className='formInput'
                                     placeholder='Заголовок'
                                     onKeyUp={(event) => taskDataPostHandleChange(event, 'title')} />
                                 <input
                                     type='text'
+                                    className='formInput'
                                     placeholder='Описание'
                                     onKeyUp={(event) => taskDataPostHandleChange(event, 'description')} />
-                                <button type='submit' onClick={(event) => {
-                                    event.preventDefault();
-                                    TaskService().addTask(taskDataPOST);
-                                    onChecked();
-                                    setTaskDataPOST({})
-                                    toggleDialog();
-                                }}>{'Сохранить'}</button>
                             </form>
                         </>
                     </Dialog>

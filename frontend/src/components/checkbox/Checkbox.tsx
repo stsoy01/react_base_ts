@@ -12,7 +12,7 @@ export default function Checkbox({ checkedTask, onChecked }: any) {
       setTimeout(() => {
         taskService(checkedTask).editTaskById(event?.target?.checked);
         onChecked();
-      }, 400)
+      }, 380)
     }
 
     return (
