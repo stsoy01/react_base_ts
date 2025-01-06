@@ -43,7 +43,8 @@ export default function TodoList() {
     function getTaskList(): void {
         const tasks = TaskService().returnTasksList(currentSection);
         setTaskList(tasks as never);
-        setTaskOverview(`У вас всего ${tasks?.length} задач`)
+        const allTaskList = TaskService().returnTasksList('all');
+        setTaskOverview(`У вас всего ${allTaskList?.length} задач`)
     }
 
     function onChecked(): void {
@@ -129,7 +130,10 @@ export default function TodoList() {
                         {addTaskButton}
                     </div>
 
-                    <Dialog onSave={(event) => saveNewTask(event)} toggleDialog={toggleDialog} ref={dialogRef}>
+                    <Dialog 
+                          onSave={(event) => saveNewTask(event)} 
+                          toggleDialog={toggleDialog} 
+                          ref={dialogRef}>
                         <>
                             <form >
                                 <h3 style={{ marginBottom: '30px', fontWeight: '600' }}>{'Добавить задание'}</h3>
